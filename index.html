@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>WebSocket</title>
+	</head>
+	<body>
+		<p>Say hello!</p>
+		<input placeholder="Name to add..." />
+		<button>Enviar</button>
+	</body>
+	<script>
+		const createAndAppendElement = (text) => {
+				const body = document.querySelector("body")
+				const element = document.createElement("p")
+				const textNode = document.createTextNode(text)
+				element.appendChild(textNode)
+				body.appendChild(element)
+		}
+
+			const ws = new WebSocket("ws://localhost:8080")
+	  	const input = document.querySelector("input")
+			const button = document.querySelector("button")
+
+			button.addEventListener("click", () => {
+					ws.send(input.value)
+			})			
+
+			ws.addEventListener("message", ({ data }) => {
+				const parsedData = JSON.parse(data)
+				const type = parsedData[0]
+				const content = parsedData[1]
+				if (type === "INFORMATIVE") {
+					console.log(content)
+				} else {
+					for (d of content) {
+						createAndAppendElement(d)
+					}
+				}
+			})
+	</script>
+<html>
