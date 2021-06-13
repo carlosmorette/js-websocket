@@ -15,7 +15,7 @@ function sendJSONMessage(client, type, message) {
 			client.send(JSON.stringify(data))
 		} else {
 			throw new Error("Message Type Not Found")
-		}	
+		}
 	} else {
 		throw new Error("Message Invalid Format")
 	}

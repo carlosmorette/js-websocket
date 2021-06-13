@@ -1,0 +1,2 @@
+# Code formatter of linux shell
+fml <file>
